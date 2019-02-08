@@ -6,10 +6,11 @@ import math as mt
 import imageio as im
 
 def convolve(g,h): # h is kernel, g is the image
-    start = 1
+    start = 
+    x,y = h.shape()
     for i in range(start,len(g[:,1])-1):
         for j in range(start, len(g[i,:])-1):
-            f = g[i-1:i+2, j-1:j+2] #FIXME
+            f = g[i-1:i+(x-1), j-1:j+(y-1)] #FIXME
             total = h*f
             I_gray_copy[i][j] = sum(sum(total)) 
     return I_gray_copy

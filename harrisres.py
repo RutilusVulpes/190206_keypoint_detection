@@ -13,9 +13,9 @@ def convolve(g,h, I_gray_copy): # h is kernel, g is the image
         for j in range(start, len(g[i,:])-1):
             f = g[i-1:i+2, j-1:j+2] #FIXME
             total = h*f
-            I_gray_copy[i][j] = sum(sum(total)) 
+            I_gray_copy[i][j] = sum(sum(total)) + .00001
     return I_gray_copy
-           
+
 def gauss_kernal(size, var):
     kernel = np.zeros(shape=(size,size))
     for i in range(size):
@@ -39,11 +39,28 @@ def harris_response(I_u, I_v, I):
     I_uu = convolve(I_u*I_u, g_kernel, I_u)
     I_vv = convolve(I_v*I_v, g_kernel, I_v)
     I_uv = convolve(I_u*I_v, g_kernel, I)
-    
+
     H = ((I_uu * I_uv) - (I_uv * I_uv))/ (I_uu + I_vv)
-    
+
     return H
 
+def reduce(H):
+    reduced = np.zeros(len(H)/3, len(H[0])/3)
+    print(reduced)
+    for x in range(len(H))[1:-1]:
+        for y in range(len(H[0]))[1:-1]:
+            continue
+
+def localMaximum(filter):
+    #candidates =
+    for row in H:
+        for pixel in row:
+            if(pixel > 1.0):
+                print(pixel)
+
+
 H = harris_response(I_u, I_v, I)
+
+reduce(H)
 plt.imshow(H, cmap=plt.cm.gray)
 plt.show()
